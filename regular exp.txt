@@ -1,0 +1,46 @@
+class Solution:
+    def isMatch(self, A: str, B: str) -> bool:
+    
+        
+        dp=[[False for j in range(len(B)+1)] for i in range(len(A)+1) ]
+
+        dp[0][0]=True
+
+        i=0
+        while i+1<len(B):
+            
+            if B[i]=='*':
+                dp[0][i+1]=True
+                i+=1
+            
+            else:
+                if B[i]!='*' and B[i+1]=='*':
+                    dp[0][i+1]=True
+                    dp[0][i+2]=True
+                    i+=2
+                
+                else:
+                    break
+            
+                    
+
+        for i in range(1,len(A)+1):
+
+            for j in range(1,len(B)+1):
+
+                if A[i-1]==B[j-1] or B[j-1]=='.':
+                    dp[i][j]=dp[i-1][j-1]
+
+
+                elif B[j-1]=='*':
+                    dp[i][j]=dp[i][j-2]
+
+                    if dp[i][j]==False:
+                        if B[j-2]==A[i-1] or B[j-2]=='.':
+                            dp[i][j]=dp[i-1][j]
+
+                else:
+                    dp[i][j]=False
+        
+
+        return dp[-1][-1]

@@ -1,0 +1,31 @@
+if B=='*':
+            return 1
+        
+        dp=[[False for j in range(len(B)+1)] for i in range(len(A)+1) ]
+        
+        dp[0][0]=True
+        
+        i=0
+        while i<len(B) and B[i]=='*':
+            i+=1
+        
+        k=0
+        while k<i:
+            dp[0][k+1]=True
+            k+=1
+        
+        for i in range(1,len(A)+1):
+            
+            for j in range(1,len(B)+1):
+                
+                if A[i-1]==B[j-1] or B[j-1]=='?':
+                    dp[i][j]=dp[i-1][j-1]
+                    
+                
+                elif B[j-1]=='*':
+                    dp[i][j]=dp[i-1][j] or dp[i][j-1]
+                
+                else:
+                    dp[i][j]=False
+        
+        return int(dp[-1][-1])

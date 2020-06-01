@@ -1,0 +1,22 @@
+class Solution:
+    # @param A : tuple of integers
+    # @return an integer
+    def maxProduct(self, A):
+        
+        maxp=A[0]
+        minn=A[0]
+        ans=A[0]
+        
+        
+        for i in range(1,len(A)):
+            
+            temp=maxp
+            
+            maxp=max(A[i],A[i]*minn,A[i]*maxp)
+            
+            minn=min(A[i],A[i]*minn,A[i]*temp)
+            
+            
+            ans=max(maxp,ans)
+        
+        return ans
