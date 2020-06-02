@@ -1,0 +1,40 @@
+class Solution:
+    # @param A : list of list of integers
+    # @return an integer
+    def calculateMinimumHP(self, A):
+        
+        
+        def calc_minHP(dp,A,x,y):
+            
+            if x==len(A)-1 and y==len(A[0])-1:
+                if A[-1][-1]>=1:
+                    return 1
+                
+                else:
+                    return abs(A[-1][-1])+1
+                
+            if x>=len(A) or y>=len(A[0]):
+                return float('inf')
+                
+            
+            if dp[x][y]!=0:
+                return dp[x][y]
+                
+            else:
+                
+                
+                dp[x][y] =min(calc_minHP(dp,A,x+1,y),calc_minHP(dp,A,x,y+1)) - A[x][y]
+                
+                if dp[x][y]<1:
+                    dp[x][y]=1
+                    
+                return dp[x][y]
+        
+        if len(A)==0 or len(A[0])==0:
+            return 0
+            
+        
+        dp=[[0 for j in range(len(A[0]))] for i in range(len(A))]
+        
+        
+        return calc_minHP(dp,A,0,0)
