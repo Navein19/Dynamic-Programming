@@ -1,0 +1,33 @@
+answer={}
+
+def word_break(dic,word):
+    global answer
+    
+    print(word)
+    
+    if word=="":
+        return True
+
+    else:
+        
+        if answer.get(word)!=None:
+            return answer[word]
+        else:
+        
+            for i in range(1,len(word)+1):
+
+                if dic.get(word[0:i])!=None and word_break(dic,word[i:]):
+                    answer[word[i:]]=True
+                    return True
+                
+                
+            answer[word]=False
+            return False
+            
+        
+
+dic={'ilik':True,'ilikekl':True, 'sam':True,'esams':True, 'ung':True, 'mobile':True, 'ice':True, 'cream':True, 'icecream':True, 'man':True, 'go':True, 'mango':True}
+
+print(word_break(dic,"ilikesamsung"))
+                
+        
