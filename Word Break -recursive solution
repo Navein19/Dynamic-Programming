@@ -1,0 +1,24 @@
+#code
+
+def word_break(dic,word):
+    
+    if word=="":
+        return True
+    
+    if dic.get(word)!=None:
+        return True
+        
+    
+    else:
+        
+        for i in range(1,len(word)):
+            
+            if dic.get(word[0:i])!=None:
+                return word_break(dic,word[i:])
+        
+        return False
+        
+
+dic={  'like':True, 'sam':True, 'sung':True, 'samsung':True, 'mobile':True, 'ice':True, 'cream':True, 'icecream':True, 'man':True, 'go':True, 'mango':True}
+
+print(word_break(dic,""))
