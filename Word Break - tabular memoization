@@ -1,0 +1,33 @@
+class Solution:
+    # @param A : string
+    # @param B : list of strings
+    # @return an integer
+    def wordBreak(self, A, B):
+        
+        if len(A)==0:
+            return 1
+        
+        words={}
+        for i in range(len(B)):
+            words[B[i]]=True
+        
+           
+            
+        dp=[False for i in range(len(A)+1)]
+        
+        dp[0]=True
+        
+        
+        for i in range(0,len(A)):
+            
+            for j in range(0,i+1):
+                
+                if dp[j] and words.get(A[j:i+1])!=None:
+                    dp[i+1]=True
+                    break
+        
+        
+        return int(dp[-1])
+            
+            
+                    
