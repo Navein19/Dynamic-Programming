@@ -1,0 +1,30 @@
+class Solution:
+    # @param A : list of list of integers
+    # @return an integer
+    def minPathSum(self, A):
+        
+        if len(A)==0 or len(A[0])==0:
+            return 0
+        
+        def min_path(dp,A,x,y):
+            
+            if x==len(A)-1 and y==len(A[0])-1:
+                return A[-1][-1]
+                
+            if x>=len(A) or y>=len(A[0]):
+                return float('inf')
+                
+            
+            if dp[x][y]>0:
+                return dp[x][y]
+                
+            
+            else:
+                
+                dp[x][y]=A[x][y] + min(min_path(dp,A,x+1,y),min_path(dp,A,x,y+1))
+                
+                return dp[x][y]
+        
+        
+        dp=[[-1 for j in range(len(A[0]))] for i in range(len(A))]
+        return min_path(dp,A,0,0)
