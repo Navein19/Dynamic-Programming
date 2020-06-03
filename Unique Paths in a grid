@@ -1,0 +1,34 @@
+class Solution:
+    # @param A : list of list of integers
+    # @return an integer
+    def uniquePathsWithObstacles(self, A):
+        
+        
+        def no_of_paths(dp,A,x,y):
+            
+            if x>=len(A) or y>=len(A[0]) or A[x][y]==1:
+                return 0
+                
+            
+            if x==len(A)-1 and y==len(A[0])-1:
+                return 1
+                
+            
+            if dp[x][y]>=0:
+                return dp[x][y]
+                
+            
+            else:
+                
+                dp[x][y]=no_of_paths(dp,A,x+1,y)+no_of_paths(dp,A,x,y+1)
+                
+                
+                return dp[x][y]
+            
+            
+        
+        
+        dp=[[-1 for j in range(len(A[0]))] for i in range(len(A))]
+        
+        
+        return no_of_paths(dp,A,0,0)
