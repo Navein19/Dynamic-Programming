@@ -1,0 +1,35 @@
+class Solution:
+    # @param A : integer
+    # @return an integer
+    def solve(self, A):
+        
+        if A==0:
+            return 0
+        
+        # this problem has some derivation if u dont get is go to this link 
+        # https://www.geeksforgeeks.org/ways-color-3n-board-using-4-colors/
+        const=pow(10,9)+7
+        
+        color2=12
+        color3=24
+        
+        if A==1:
+            return color2+color3
+            
+            
+        dp=[0 for i in range(A+1)]
+        
+        dp[1]=36
+        
+        
+        for i in range(2,A+1):
+            
+            temp=color2
+            
+            color2 = ((5*color3)%const + (7*color2)%const)%const
+            color3 = ((11*color3)%const + (10*temp)%const)%const
+            
+            dp[i]=(color2+color3)%const
+            
+        
+        return dp[-1]
