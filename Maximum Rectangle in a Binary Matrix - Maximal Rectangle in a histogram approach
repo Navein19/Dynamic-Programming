@@ -3,48 +3,50 @@ class Solution:
     # @return an integer
     def maximalRectangle(self, A):
         
-        def max_hist_rect(heights):
-            max_area=0
-            stack=[]
-            i=0
-            for i in range(len(heights)):
+        def max_hist_rect(histogram):
+            
+            s=[]
+            
+            maxi_area=-float('inf')
+            
+            for k in range(len(histogram)):
                 
-                if stack and heights[stack[-1]]<=heights[i]:
-                    stack.append(i)
-                
-                
+                if len(s)==0:
+                    s.append(k)
+                    
                 else:
                     
-                    while(stack and heights[i]<heights[stack[-1]]):
+                    while s and histogram[s[-1]]>=histogram[k]:
                         
-                        histogram_index=stack.pop()
+                        poped=s.pop()
                         
-                        if len(stack)==0:
-                            area=heights[histogram_index]*i
-                            max_area=max(max_area,area)
+                        if len(s)==0:
+                            area=histogram[poped]*k
                         
                         else:
-                            area=heights[histogram_index]*(i-stack[-1]-1)
-                            max_area=max(max_area,area)
-                
-                    stack.append(i)
-        
-            i+=1
-            
-            while len(stack)!=0:
-                
-                histogram_index=stack.pop()
+                            area=histogram[poped]*(k-s[-1]-1)
+                            
                         
-                if len(stack)==0:
-                    area=heights[histogram_index]*i
-                    max_area=max(max_area,area)
-    
+                        maxi_area=max(maxi_area,area)
+                    
+                    s.append(k)
+            
+            k+=1
+            while s:
+                poped=s.pop()
+                        
+                if len(s)==0:
+                    area=histogram[poped]*k
+                
                 else:
-                    area=heights[histogram_index]*(i-stack[-1]-1)
-                    max_area=max(max_area,area)
-            
-            
-            return max_area
+                    area=histogram[poped]*(k-s[-1]-1)
+                    
+                
+                maxi_area=max(maxi_area,area)
+                
+                
+                
+            return maxi_area
         
         
         maxi=-float('inf')
