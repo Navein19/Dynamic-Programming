@@ -1,0 +1,53 @@
+class Solution:
+    # @param A : string
+    # @return an integer
+    def minCut(self, A):
+        
+        dp=[[False for j in range(len(A))] for i in range(len(A))]
+
+        for i in range(len(A)):
+    
+            if i==0:
+    
+                for j in range(0,len(A)):
+                    dp[j][j]=True
+    
+            elif i==1:
+    
+                for j in range(0,len(A)-1):
+                    if A[j]==A[j+1]:
+                        dp[j][j+1]=True
+            else:
+    
+                for j in range(0,len(A)-i):
+    
+                    if A[j]==A[j+i] and dp[j+1][j+i-1]:
+                        dp[j][j+i]=True
+        
+        
+        min_cuts=[float('inf') for i in range(len(A))]
+        
+        
+        for i in range(0,len(A)):
+            
+            
+            if dp[0][i]:
+                
+                min_cuts[i]=0
+            
+        
+            else:
+                
+                temp=min_cuts[i]
+                
+                for j in range(0,i):
+                    
+                    if dp[j+1][i] and temp>1+min_cuts[j]:
+                        temp=1+min_cuts[j]
+                
+                min_cuts[i]=temp
+        
+        return min_cuts[-1]
+            
+            
+            
