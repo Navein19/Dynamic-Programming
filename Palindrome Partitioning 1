@@ -1,0 +1,58 @@
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        
+        def is_palindrome(s,dp):
+            
+            for i in range(len(s)):
+                
+                if i==0:
+                    
+                    for j in range(len(s)):
+                        dp[j][j]=True
+                
+                elif i==1:
+                    
+                    for j in range(len(s)-1):
+                        
+                        if s[j]==s[j+1]:
+                            dp[j][j+1]=True
+                
+                else:
+                    
+                    for j in range(len(s)-i):
+                        
+                        if s[j]==s[j+i] and dp[j+1][j+i-1]:
+                            dp[j][j+i]=True
+                
+        
+        
+        def find_partition(st,decompose,ans,dp,ptr):
+            
+             
+            if ptr>=len(st):
+                ans.append(decompose[:])
+                return
+                
+            
+            for i in range(ptr,len(st)):
+                
+                if dp[ptr][i]:
+                    
+                    decompose.append(st[ptr:i+1])
+                    
+                    find_partition(st,decompose,ans,dp,i+1)
+                    
+                    
+                    decompose.pop()
+        
+     
+        
+        dp=[[False for j in range(len(s))] for i in range(len(s))]
+        
+        is_palindrome(s,dp)
+        
+        ans=[]
+        find_partition(s,[],ans,dp,0)
+        
+        return ans
+        
