@@ -1,0 +1,48 @@
+class Solution:
+    # @param A : list of list of integers
+    # @return an integer
+    def solve(self,A):
+        def myfun(e):
+            return e[1]*e[2]
+        
+        possible_boxes=[]
+        
+        for i in range(len(A)):
+            possible_boxes.append([A[i][0],A[i][1],A[i][2]])
+            possible_boxes.append([A[i][1],A[i][0],A[i][2]])
+            possible_boxes.append([A[i][2],A[i][0],A[i][1]])
+            
+        
+        possible_boxes.sort(key=myfun,reverse=True)
+        
+        
+        
+        dp=[possible_boxes[i][0] for i in range(len(possible_boxes))]
+        
+        
+        
+        
+        for i in range(1,len(dp)):
+            
+            length1=max(possible_boxes[i][1],possible_boxes[i][2])
+            breadth1=min(possible_boxes[i][1],possible_boxes[i][2])
+            height1=possible_boxes[i][0]
+            
+            for j in range(0,i):
+                
+                length2=max(possible_boxes[j][1],possible_boxes[j][2])
+                breadth2=min(possible_boxes[j][1],possible_boxes[j][2])
+                
+                if length1<length2 and breadth1<breadth2:
+                    
+                    dp[i]=max(dp[i],dp[j]+height1)
+            
+        
+        return max(dp)
+                
+                
+        
+        
+            
+    
+        
