@@ -1,0 +1,33 @@
+def matrix_chain(arr):
+    
+    dimension=[]
+    for i in range(len(arr)-1):
+        dimension.append([arr[i],arr[i+1]])
+    
+    
+    dp=[[float('inf') for j in range(len(dimension))] for i in range(len(dimension))]
+    
+    for i in range(len(dimension)):
+        
+        if i==0:
+            for j in range(len(dimension)):
+                dp[j][j]=0
+        
+        elif i==1:
+            for j in range(len(dimension)-1):
+                dp[j][j+1]=dimension[j][0]*dimension[j][1]*dimension[j+1][1]
+                
+        
+        else:
+            
+            for j in range(len(dimension)-i):
+                
+                for k in range(j,j+i):
+                    
+                    dp[j][j+i]=min(dp[j][j+i],
+                                   dimension[j][0]*dimension[k][1]*dimension[j+i][1]+dp[j][k]+dp[k+1][j+i])
+    
+    print(dp)
+    return dp[0][len(dimension)-1]
+                    
+                    
