@@ -1,0 +1,51 @@
+class Solution:
+    def minFallingPathSum(self, A: List[List[int]]) -> int:
+        
+        
+        def min_fall_path(x,y,dp):
+            
+            
+            if x==len(A)-1:
+                return A[x][y]
+            
+            
+            if dp[x][y]==-float('inf'):
+                
+                if y==0:
+                    option1=float('inf')
+                
+                else:
+                    option1=min_fall_path(x+1,y-1,dp)
+                    
+                
+                if y==len(A[0])-1:
+                    option2=float('inf')
+                
+                else:
+                    option2=min_fall_path(x+1,y+1,dp)
+                    
+                
+                option3=min_fall_path(x+1,y,dp)
+                
+                
+                dp[x][y]=A[x][y]+min(option1,option2,option3)
+                return dp[x][y]
+                
+                
+            else:
+                return dp[x][y]
+            
+        
+        
+        dp=[[-float('inf') for j in range(len(A[0]))] for i in range(len(A))]
+        
+        mini=float('inf')
+        for i in range(len(A[0])):
+            mini=min(mini,min_fall_path(0,i,dp))
+        
+        return mini
+                     
+        
+    
+                
+        
