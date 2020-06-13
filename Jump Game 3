@@ -1,0 +1,40 @@
+class Solution:
+    def canReach(self, arr: List[int], start: int) -> bool:
+        
+        def isPossible(arr,index,visited,zeros):
+        
+            
+            if arr[index]==0:
+                if zeros.get(index)!=None:
+                    del zeros[index]
+                
+                return
+            
+            if len(visited)<=len(arr):
+                
+                index1=index-arr[index]
+                index2=index+arr[index]
+                
+                if index1>=0 and (visited.get(index1)==None or arr[index1]==0):
+                    visited[index1]=True
+                    isPossible(arr,index1,visited,zeros)
+                
+                if index2<len(arr) and (visited.get(index2)==None or arr[index2]==0):
+                    visited[index2]=True
+                    isPossible(arr,index2,visited,zeros)
+                
+                
+        
+        zeros={}
+        visited={}
+        for i in range(len(arr)):
+            
+            if arr[i]==0:
+                zeros[i]=True
+            
+                visited[i]=True
+        
+        n=len(zeros)
+        isPossible(arr,start,visited,zeros)
+        
+        return  n>len(zeros)
