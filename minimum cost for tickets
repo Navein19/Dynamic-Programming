@@ -1,0 +1,36 @@
+class Solution:
+    def mincostTickets(self, days: List[int], cost: List[int]) -> int:
+        
+        dp=[0 for i in range(len(days)+1)]
+        
+        dp[1]=min(cost)
+        
+        l=0
+        r=0
+        
+        for i in range(2,len(days)+1):
+            
+            if days[i-1]-days[i-2]>29:
+                dp[i]=dp[i-1]+cost[0]
+                
+            
+            else:
+                
+                while days[i-1]-days[l]>29:
+                    l+=1
+                
+                cost_with_30=dp[l]+cost[2]
+                
+                while days[i-1]-days[r]>6:
+                    r+=1
+                
+                cost_with_7=dp[r]+cost[1]
+                
+                cost_with_1=dp[i-1]+cost[0]
+                
+                dp[i]=min(cost_with_1,cost_with_7,cost_with_30)
+                
+        print(dp)
+        return dp[-1]
+                    
+                
